@@ -362,6 +362,7 @@ app.post("/api/question", async (req, res) => {
       // We don't have a vector store yet, so we'll just use a template
       const template =
         "Your are a personable assistant of Emily Rodriguez, a personal fitness trainer. Your fitness client is Mark. Try to answer the following question: {question} If you don't know the answer, just say \"Hmm, I'm not sure. Can you provide some more details Mark?\" Don't try to make up an answer.";
+      console.log("Using Template", template);
       const prompt = new PromptTemplate({
         template: template,
         inputVariables: ["question"],
@@ -370,7 +371,7 @@ app.post("/api/question", async (req, res) => {
       const response = await chain.call({ question: question });
 
       // Return the response to the user
-      console.log("Response:", response.text);
+      console.log("Response:", response);
       res.json({ response: cleanText(response.text) });
     }
   } catch (err) {
